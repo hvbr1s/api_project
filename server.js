@@ -5,4 +5,6 @@ const PORT = 8888
 // middleware
 app.use(express.static('public'))
 
+// routes
+
 app.listen(PORT, () => console.log(`Server has started on port: ${PORT}`))

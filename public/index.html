@@ -4,8 +4,109 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SamBot API</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
+            background: rgb(12, 12, 37);
+            color: white;
+            display: flex;
+            flex-direction: column;
+        }
+
+
+
+    </style>
 </head>
 <body>
+    <div class="container">
+        <div class="headerContainer">
+             <h1>SamBot API</h1>
+             <a class="first" href="#">
+                <i class="fa-solid fa-book"></i>
+                Docs
+             </a>
+        </div>
+    </div>
+    <section>
+        <h2 class="subHeader">Description</h2>
+        <div class="info">
+            <h3>Purpose</h3>
+            <p>All your Ledger questions, answered immediately/p>
+        </div>
+        <div class="ïnfo">
+            <h3>Author</h3>
+            <p>Hvbris</p>
+
+        </div>
+
+    </section>
+    <section>
+        <h2 class="subHeader">Check Key Status</h2>
+        <p class="preMsg">Please enter your API key below to chekc its status</p>
+        <p class="errMsg"> Please ensure your API key is formatted correctly</p>
+        <p class="authenticatedMsh">API Key Authenticated</p>
+        <div class="info">
+            <h3>Example API Key</h3>
+            <p>sk-00000x0000</p>
+        </div>
+        <div class="keyInput">
+            <input type="text" placeholder="API Key"/>
+            <i class="fa-regular fa-circle codeCheck"></i>
+            <i class="fa-solid fa-circle codeCheck"></i>
+        </div>
+        <div class="AddKey">
+            <i class="fa-solid fa-check"></i> Check Status
+        </div>
+    </section>
+    <section>
+        <h2 class="subHeader">Billing Plans</h2>
+        <div class="planContainer">
+            <div class="subscription">
+                <div class="subscriptionHeader">
+                    <div>
+                        <h3 class="currPlan">Prepaid</h3>
+                        <h3>Plan</h3>
+                    </div>
+                    <div class="activePlan">
+                        <i class="fa-solid fa-circle-check"></i>
+                        <p>Active</p>           
+                    </div>
+                </div>
+                <div class="subscriptionDetails">
+                    <div class=detailBlock">
+                        <h4>Plan Details</h4>
+                        <p>
+                            <i class="fa-solid fa-check"></i>
+                            100 PrePaid API Calls
+                        </p>
+                        <p>
+                            <i class="fa-solid fa-check"></i>
+                            200 PrePaid API Calls
+                        </p>
+                    </div>
+                    <div class="detailBlock">
+                        <h4>Billing & Payment</h4>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
     
 </body>
 </html>
