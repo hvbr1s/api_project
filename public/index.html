@@ -7,6 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <style>
@@ -27,7 +28,129 @@
             flex-direction: column;
         }
 
+        .container {
+            flex:1;
+            display:flex;
+            flex-direction: column;
+            padding: 24px;
+            width:100%;
+            max-width: 1000px;
+            margin: 0 auto
+        }
 
+        .headerContainer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between
+
+        }
+        .headerContainer a,
+        .updateBtn,
+        .addKey {
+            background: rgb(210, 207, 210);
+            color: rgb(7, 7, 7);         
+            cursor: pointer;
+            border: 2px solid rgb(7, 7, 7);
+            border-radius: 5px;
+            padding: 8px 16px;
+            box-shadow: 2px 2px 0 0 black,
+            4px 4px 0 0 white;
+            transition-duration: 200ms;
+            /* font-family: 'Press Start 2P', cursive; */
+            text-decoration: none;
+            width: fit-content;
+        }
+
+        .updateBtn,
+        .addKey{
+            width: fit-content;
+            margin-bottom: 12px;
+        }
+
+        .headerContainer a:hover,
+        .updateBtn:hover,
+        .addKey:hover {
+        
+        box-shadow: 3px 3px black, 6px 6px 0 0 white;
+        transform: translate(-2px, 2px);
+        
+        }
+
+        .updateBtn,
+        .addKey {
+            margin-top: 8px;
+        }
+
+        .subHeader{
+            font-size: 1.3rem;
+
+        }
+
+        .info{
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .info h3,
+        .info p{
+            font-size: 0.9rem;
+
+        }
+
+        .info h3{
+            color:aquamarine;
+            font-weight: 500;
+        }
+
+        .info p{
+            font-weight: 300;
+        }
+
+        .info i{
+            opacity:0.7;
+        }
+        
+        .info .trashCan:hover{
+            color: coral;
+            opacity: unset;
+        }
+
+        .errMsg{
+            color:coral;
+        }
+
+        .authenticatedMsg{
+            color: lime;
+        }
+
+        .codeCheck{
+            padding:0 8px;
+        }
+
+        .keyInput{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap:8px;
+            width:100%;
+            margin-top: 8px;
+            border: 1px solid navy
+        }
+
+        .keyInput:focus-within{
+            border-color: blue;
+        }
+
+        .keyInput input{
+            flex: 1;
+            background: transparent;
+            border: none;
+            outline: none;
+            padding: 12px;
+            color:white
+        }
 
     </style>
 </head>
@@ -45,7 +168,7 @@
         <h2 class="subHeader">Description</h2>
         <div class="info">
             <h3>Purpose</h3>
-            <p>All your Ledger questions, answered immediately/p>
+            <p>All your Ledger questions, answered immediately</p>
         </div>
         <div class="ïnfo">
             <h3>Author</h3>
@@ -68,7 +191,7 @@
             <i class="fa-regular fa-circle codeCheck"></i>
             <i class="fa-solid fa-circle codeCheck"></i>
         </div>
-        <div class="AddKey">
+        <div class="addKey">
             <i class="fa-solid fa-check"></i> Check Status
         </div>
     </section>
@@ -91,7 +214,7 @@
                         <h4>Plan Details</h4>
                         <p>
                             <i class="fa-solid fa-check"></i>
-                            100 PrePaid API Calls
+                            100 Fast PrePaid API Calls
                         </p>
                         <p>
                             <i class="fa-solid fa-check"></i>
@@ -118,9 +241,60 @@
                         </div>
                     </div>
                 </div>
+                <div class="updateButton">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    Checkout
+                </div>
+            </div>
+            <div class="subscription">
+                <div class="subscriptionHeader">
+                    <div>
+                        <h3 class="currPlan">Prepaid</h3>
+                        <h3>Plan</h3>
+                    </div>
+                    <div class="activePlan">
+                        <i class="fa-solid fa-circle-check"></i>
+                        <p>Active</p>           
+                    </div>
+                </div>
+                <div class="subscriptionDetails">
+                    <div class=detailBlock">
+                        <h4>Plan Details</h4>
+                        <p>
+                            <i class="fa-solid fa-check"></i>
+                            On-demand
+                        </p>
+                        <p>
+                            <i class="fa-solid fa-check"></i>
+                            Any Technical Questions
+                        </p>
+                        <p>
+                            <i class="fa-solid fa-check"></i>
+                            Pay as you go
+                        </p>
+                    </div>
+                    <div class="detailBlock">
+                        <h4>Billing & Payment</h4>
+                        <div class="billingBlock">
+                            <p>Price</p>
+                            <p>$1.00/call</p>
+                        </div>
+                        <div class="billingBlock">
+                            <p>Billing Period</p>
+                            <p>Monthly</p>
+                        </div>
+                        <div class="billingBlock">
+                            <p>Renewal Date</p>
+                            <p>N/A</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="updateButton">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    Checkout
+                </div>
             </div>
         </div>
-
     </section>
     
 </body>
