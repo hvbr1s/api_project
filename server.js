@@ -1,6 +1,7 @@
 const { generateApiKey } = require('generate-api-key')
 const PORT = 8888
 require('dotenv').config()
+const {db} = require('./firebase.js')
 
 // Env Variables
 const STRIPE_SECRET_KEY = process.env.STRIPE_SECRET_KEY
