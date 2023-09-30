@@ -1,0 +1,311 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    min-height: 100vh;
+    background: rgb(12, 12, 37);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    padding-left: 24px;
+    padding-right: 24px;
+}
+
+.container {
+    flex:1;
+    display:flex;
+    flex-direction: column;
+    padding: 24px   ;
+    width:100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    gap: 24px;
+}
+
+.headerContainer {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between
+
+}
+
+.headerContainer a,
+.updateBtn,
+.addKey {
+    background: rgb(210, 207, 210);
+    color: rgb(7, 7, 7);         
+    cursor: pointer;
+    border: 2px solid rgb(7, 7, 7);
+    border-radius: 5px;
+    padding: 8px 16px;
+    box-shadow: 2px 2px 0 0 black,
+    4px 4px 0 0 white;
+    transition-duration: 200ms;
+    gap:8px;
+    text-decoration: none;
+    width: fit-content;
+}
+
+.updateBtn,
+.addKey{
+    width: fit-content;
+    margin-bottom: 12px;
+    cursor: pointer;
+}
+
+.headerContainer a:hover,
+.updateBtn:hover,
+.addKey:hover {
+
+box-shadow: 3px 3px black, 6px 6px 0 0 white;
+transform: translate(-2px, 2px);
+
+}
+
+.updateBtn,
+.addKey {
+    margin-top: 8px;
+}
+
+.subHeader{
+    font-size: 1.3rem;
+
+}
+
+.first{
+    display: flex;
+}
+
+.info{
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.info h3,
+.info p{
+    font-size: 0.9rem;
+
+}
+
+.info h3{
+    color:aquamarine;
+    font-weight: 500;
+}
+
+.info p{
+    font-weight: 300;
+}
+
+.info i{
+    cursor: pointer;
+}
+
+.info i:hover{
+    opacity:0.7;
+}
+
+.info .trashCan:hover{
+    color: coral;
+    opacity: unset;
+}
+
+.errMsg{
+    color:coral;
+    display:none;
+}
+
+.authenticatedMsg{
+    color: lime;
+}
+
+.codeCheck{
+    padding:0 8px;
+}
+
+.keyInput{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap:8px;
+    width:100%;
+    margin-top: 8px;
+    border: 1px solid navy
+}
+
+.keyInput:focus-within{
+    border-color: blue;
+}
+
+.keyInput input{
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    padding: 12px;
+    color:white
+}
+
+.section{
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.planContainer{
+    display: grid;
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+    gap: 8px;
+}
+
+.subscription{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    background: hsla(200, 80%, 50%, 0.2);
+    padding: 12px;
+    border-radius: 4px;
+    
+}
+
+.subscriptionHeader{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.subscriptionHeader div{
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.subscriptionHeader h3{
+    font-size: 1rem;
+
+}
+
+.activePlan,
+.activePlan2{
+    border-radius: 20px;
+    background: coral;
+    padding: 4px 10px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+
+}
+
+.activePlan2{
+    background: rgb(97, 172, 97);
+}
+
+.activePlan p,
+.activePlan2 p,
+.activePlan i,
+.activePlan2 i {
+
+    font-size: 0.8rem;
+}
+
+.activePlan p,
+.activePlan i{
+
+    text-shadow: 0 0 10px darkgreen;
+}
+
+.activePlan2 p,
+.activePlan2 i{
+    text-shadow: 0 0 10px navy;
+}
+
+.currPlan {
+    color: lime
+}
+
+.currPlan2 {
+    color: cyan
+}
+
+.subscriptionDetails {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.detailBlock {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.detailBlock h4 {
+    font-size: 0.8rem;
+    font-weight: 800;
+}
+
+.detailBlock p{
+    font-size: 0.8rem;
+}
+
+.detailBlock i{
+    color:  limegreen;
+    background: black;
+    padding: 2px 4px;
+
+}
+
+.billingBlock{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: white;
+
+}
+
+@media (min-width: 768px){
+    .container{
+        gap: 32px;
+    }
+    .headerContainer a{
+        font-size: 1rem;
+    }
+    .subHeader{
+        font-size: 1.8rem;
+    }
+    .info{
+        gap:16px;
+    }
+    .info h3,
+    .info p{
+        font-size: 1rem;
+    }
+    .subscription{
+        padding: 24px;
+    }
+    .subscriptionHeader{
+        font-size: 1.2rem;
+    }
+    .subscriptionHeader h3{
+        font-size: 1.2rem;
+    }
+    .detailBlock h4{
+        font-size:1rem;
+    }
+    .detailBlock p{
+        font-size: 0.9rem;
+    }
+    .codeCheck{
+        padding: 0 10px;
+    }
+    .planContainer{
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
