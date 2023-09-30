@@ -1,6 +1,4 @@
-const express = require('express')
 const { generateApiKey } = require('generate-api-key')
-const app = express()
 const PORT = 8888
 require('dotenv').config()
 
@@ -9,10 +7,33 @@ const STRIPE_SECRET_KEY = process.env.STRIPE_SECRET_KEY
 const stripe = require('stripe')(STRIPE_SECRET_KEY)
 const DOMAIN = `http://localhost:${PORT}/`
 
-// middleware
-app.use(express.static('public'))
+// Initialize express app
+const express = require('express');
+const app = express()
+app.use(express.json()); // for parsing application/json
+app.use(express.urlencoded({ extended: true }))
+app.use(express.static('public')) // for parsing application/x-www-form-urlencoded
+
+// Initialize axios
+const axios = require('axios');
 
 // routes
+app.get('/api', async (req, res) => {
+    const { api_key } = req.query;
+    if (!api_key) {
+        return res.sendStatus(403);
+    } else {
+        try {
+            const response = await axios.get('https://knowlbot.aws.prd.ldg-tech.com/');
+            res.status(200).send(response.data); // Forward the response from the target address
+        } catch (error) {
+            console.error('Error during forwarding request:', error);
+            res.status(error.response ? error.response.status : 500).send(error.message);
+        }
+    }
+});
+
+
 app.post('/create-checkout-session/:product', async (req, res) =>{
 
     const { product } = req.params
