@@ -71,7 +71,8 @@ app.post('/create-checkout-session/:product', async (req, res) =>{
     const session = await stripe.checkout.sessions.create({
         customer: stripeCustomerId,
         metadata: {
-            APIkey: newAPIKey
+            APIkey: newAPIKey,
+            payment_type: product
         },
         line_items: line_items,
         mode: mode,
@@ -80,6 +81,14 @@ app.post('/create-checkout-session/:product', async (req, res) =>{
     })
 
     // create firebase record
+    const data = {
+            APIkey: newAPIKey,
+            payment_type: product,
+            stripeCustomerId
+    }
+    const dbRes = await db.collection('api_keys').doc(newAPIKey).set
+    (data, {merge: true})
+
 
     //use webhook to access firebase entry for api key
     res.redirect(303, session.url)
