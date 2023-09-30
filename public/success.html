@@ -36,7 +36,7 @@
     <h1>Purchase Successful!</h1>
     <h3>Your API Key is: </h3>
     <div id="apiKey" class="apiKey"></div>
-    <p>Keep this keep secret!</p>
+    <p>Copy this key and keep it secret!</p>
     <a href="/">Back to homepage</a><i class="fa-solid fa-house"></i>
 </body>
 <script>
@@ -45,10 +45,6 @@
     const apikey = urlParams.get('apikey'); // Get the value of the 'apikey' parameter from the query string
     const div = document.getElementById('apiKey'); // Get the div element by its ID
     div.innerText = apikey; // Set the inner text of the div to the value of the 'apikey' parameter
-    // const urlParams = window.location.search
-    // const { apikey } = urlParams
-    // const div = document.getElementById('apikey')
-    // div.innerText = apikey
 
 </script>
 </html>

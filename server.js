@@ -53,7 +53,7 @@ app.post('/create-checkout-session/:product', async (req, res) =>{
         },
         line_items: line_items,
         mode: mode,
-        success_url: `${DOMAIN}/success.html?api_key=${newAPIKey}`,
+        success_url: `${DOMAIN}/success.html?apikey=${newAPIKey}`,
         cancel_url: `${DOMAIN}/cancel.html`,
     })
 
