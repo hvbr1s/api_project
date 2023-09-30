@@ -21,12 +21,27 @@ const { database } = require('firebase-admin')
 
 // routes
 app.get('/api', async (req, res) => {
-    const { api_key } = req.query;
-    if (!api_key) {
+    console.log('Received request for /api');
+    console.log('Query parameters:', req.query);
+
+    const { api_key, user_input, user_id } = req.query;
+    if (!api_key || api_key !== process.env.FIREBASE_API_KEY) {
+        console.log('Invalid or no api_key provided');
         return res.sendStatus(403);
     } else {
+        console.log('api_key:', api_key);
         try {
-            const response = await axios.get('https://knowlbot.aws.prd.ldg-tech.com/');
+            console.log('Making request to https://knowlbot.aws.prd.ldg-tech.com/gpt');
+            const response = await axios.post('https://knowlbot.aws.prd.ldg-tech.com/gpt', {
+                user_input: user_input,
+                user_id: user_id
+            }, {
+                headers: {
+                    'Authorization': `Bearer ${process.env.BACKEND_API_KEY}`,
+                    'Content-Type': 'application/json'
+                }
+            });
+            console.log('Received response:', response.data);
             res.status(200).send(response.data); // Forward the response from the target address
         } catch (error) {
             console.error('Error during forwarding request:', error);
