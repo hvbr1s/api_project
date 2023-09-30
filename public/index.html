@@ -152,17 +152,23 @@
         const check_status_btn = document.getElementById('check_status_btn')
 
         async function getCurrStatus(){
-            const user_api_key = input.value
+            const user_api_key = document.querySelector('#userKey input').value;
             if (!user_api_key){
-                return({})
+                console.log('No API key entered');
+                return;
             }
             try {
-                const res = await fetch('http://localhost:8888/check_status?apikey='+ user_api_key)
+                console.log('Sending request to /check_status');
+                const res = await fetch('http://localhost:8888/check_status?api_key='+ user_api_key)
+                if (!res.ok) {
+                    console.log('API key check failed with status: ', res.status);
+                    return;
+                }
                 const { status } = await res.json()
-                console.log('STATUS IS: ', status)
+                console.log('Received response from /check_status: ', status)
             }
             catch (err) {
-                console.log(err.msg)
+                console.log('Error occurred: ', err)
             }
         }
 

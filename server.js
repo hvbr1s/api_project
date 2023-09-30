@@ -36,13 +36,16 @@ app.get('/api', async (req, res) => {
 });
 
 app.get('/check_status', async (req, res) => {
+    console.log('Received request for /check_status');
     const {api_key} = req.query
-    const doc = await database.collection('api_keys').doc(api_key).get()
+    const doc = await db.collection('api_keys').doc(api_key).get()
     if (!doc.exists){
+        console.log('API key does not exist');
         res.status(400).send({'status': 'Sorry, this API key does not exist!'})
     }
     else {
         const {status} = doc.data()
+        console.log('API key status: ', status);
         res.status(200).send({'status': status })
     }
 })
