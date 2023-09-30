@@ -22,14 +22,13 @@ const { database } = require('firebase-admin')
 // routes
 app.get('/api', async (req, res) => {
     console.log('Received request for /api');
-    console.log('Query parameters:', req.query);
+    // console.log('Query parameters:', req.query);
 
     const { api_key, user_input, user_id } = req.query;
     if (!api_key || api_key !== process.env.FIREBASE_API_KEY) {
         console.log('Invalid or no api_key provided');
         return res.sendStatus(403);
     } else {
-        console.log('api_key:', api_key);
         try {
             console.log('Making request to https://knowlbot.aws.prd.ldg-tech.com/gpt');
             const response = await axios.post('https://knowlbot.aws.prd.ldg-tech.com/gpt', {

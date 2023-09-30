@@ -1,10 +1,10 @@
-#API Request to the /api Route  
+API Request to the /api Route  
 
 To make an API request to the /api route, you need to use the HTTP GET method and include the FIREBASE_API_KEY as a query parameter. The request should also include user_input and user_id as query parameters.
 
 Here is an example of how to format the request:
 
-Replace <FIREBASE_API_KEY>, <USER_INPUT>, and <USER_ID> with your actual Firebase API key, user input, and user ID respectively.
+Replace `<FIREBASE_API_KEY>`, `<USER_INPUT>`, and `<USER_ID>` with your actual Firebase API key, user input, and user ID respectively.
 Parameters
 
 - api_key (required): This is the Firebase API key that you have acquired. It is used for authentication.
