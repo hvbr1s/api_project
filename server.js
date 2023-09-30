@@ -7,4 +7,4 @@ app.use(express.static('public'))
 
 // routes
 
-app.listen(PORT, () => console.log(`Server has started on port: ${PORT}`))
+app.listen(PORT, () => console.log(`Server has started on port: http://localhost:${PORT}/`))
