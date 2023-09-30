@@ -44,12 +44,12 @@
             <h3>Example API Key</h3>
             <p>sk-00000x0000</p>
         </div>
-        <div class="keyInput">
+        <div id="userKey" class="keyInput">
             <input type="text" placeholder="API Key"/>
             <i class="fa-regular fa-circle codeCheck"></i>
             <i class="fa-solid fa-circle codeCheck"></i>
         </div>
-        <div class="addKey">
+        <div id="check_status_btn" class="addKey">
             <i class="fa-solid fa-check"></i>Check Status
         </div>
     </section>
@@ -146,6 +146,27 @@
             </form>
         </div>
     </section>
-    
 </body>
+    <script>
+        const input = document.getElementById('userKey')
+        const check_status_btn = document.getElementById('check_status_btn')
+
+        async function getCurrStatus(){
+            const user_api_key = input.value
+            if (!user_api_key){
+                return({})
+            }
+            try {
+                const res = await fetch('http://localhost:8888/check_status?apikey='+ user_api_key)
+                const { status } = await res.json()
+                console.log('STATUS IS: ', status)
+            }
+            catch (err) {
+                console.log(err.msg)
+            }
+        }
+
+        check_status_btn.addEventListener('click', getCurrStatus)
+
+    </script>
 </html>

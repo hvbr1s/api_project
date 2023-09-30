@@ -17,6 +17,7 @@ app.use(express.static('public')) // for parsing application/x-www-form-urlencod
 
 // Initialize axios
 const axios = require('axios');
+const { database } = require('firebase-admin')
 
 // routes
 app.get('/api', async (req, res) => {
@@ -33,6 +34,18 @@ app.get('/api', async (req, res) => {
         }
     }
 });
+
+app.get('/check_status', async (req, res) => {
+    const {api_key} = req.query
+    const doc = await database.collection('api_keys').doc(api_key).get()
+    if (!doc.exists){
+        res.status(400).send({'status': 'Sorry, this API key does not exist!'})
+    }
+    else {
+        const {status} = doc.data()
+        res.status(200).send({'status': status })
+    }
+})
 
 
 app.post('/create-checkout-session/:product', async (req, res) =>{
@@ -84,11 +97,11 @@ app.post('/create-checkout-session/:product', async (req, res) =>{
     const data = {
             APIkey: newAPIKey,
             payment_type: product,
-            stripeCustomerId
+            stripeCustomerId,
+            status: null
     }
     const dbRes = await db.collection('api_keys').doc(newAPIKey).set
     (data, {merge: true})
-
 
     //use webhook to access firebase entry for api key
     res.redirect(303, session.url)
