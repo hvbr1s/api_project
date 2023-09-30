@@ -50,13 +50,13 @@
             <i class="fa-solid fa-circle codeCheck"></i>
         </div>
         <div class="addKey">
-            <i class="fa-solid fa-check"></i> <b>Check Status</b>
+            <i class="fa-solid fa-check"></i>Check Status
         </div>
     </section>
     <section>
         <h2 class="subHeader">Billing Plans</h2>
         <div class="planContainer">
-            <div class="subscription">
+            <form action="/create-checkout-session/pre" method="POST" class="subscription">
                 <div class="subscriptionHeader">
                     <div>
                         <h3 class="currPlan">Prepaid</h3>
@@ -72,7 +72,7 @@
                         <h4>Plan Details</h4>
                         <p>
                             <i class="fa-solid fa-check"></i>
-                            100 Fast PrePaid API Calls
+                            100 Questions
                         </p>
                         <p>
                             <i class="fa-solid fa-check"></i>
@@ -87,7 +87,7 @@
                         <h4>Billing & Payment</h4>
                         <div class="billingBlock">
                             <p>Price</p>
-                            <p>$14.9</p>
+                            <p>$99.99</p>
                         </div>
                         <div class="billingBlock">
                             <p>Billing Period</p>
@@ -99,15 +99,15 @@
                         </div>
                     </div>
                 </div>
-                <div class="updateButton">
+                <button class="updateBtn">
                     <i class="fa-solid fa-cart-shopping"></i>
                     Checkout
-                </div>
-            </div>
-            <div class="subscription">
+                </button>
+            </form>
+            <form action="/create-checkout-session/sub" method="POST" class="subscription">
                 <div class="subscriptionHeader">
                     <div>
-                        <h3 class="currPlan2">As you go</h3>
+                        <h3 class="currPlan2">Ondemand</h3>
                         <h3>Plan</h3>
                     </div>
                     <div class="activePlan2">
@@ -120,7 +120,7 @@
                         <h4>Plan Details</h4>
                         <p>
                             <i class="fa-solid fa-check"></i>
-                            On-demand
+                            1 Question per Call
                         </p>
                         <p>
                             <i class="fa-solid fa-check"></i>
@@ -147,11 +147,11 @@
                         </div>
                     </div>
                 </div>
-                <div class="updateButton">
+                <button class="updateBtn">
                     <i class="fa-solid fa-cart-shopping"></i>
                     Checkout
-                </div>
-            </div>
+                </button>
+            </form>
         </div>
     </section>
     

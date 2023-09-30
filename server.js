@@ -19,25 +19,22 @@ app.post('/create-checkout-session/:product', async (req, res) =>{
     let mode, price_ID, line_items
 
     if (product === 'sub'){
-        price_ID = 'price_1Nw3eDK2BEcUysLFZbUnSpKD'
+        price_ID = 'price_1Nw3pUK2BEcUysLFWJ1BgWJw'
         mode = 'subscription'
-        line_items ={
+        line_items = [{
             price: price_ID,
-        }
+        }]
 
     } else if (product === 'pre') {
-        price_ID='price_1Nw3pUK2BEcUysLFWJ1BgWJw'
+        price_ID='price_1Nw54sK2BEcUysLFWyuX0UBW'
         mode= 'payment'
-        line_items={
+        line_items = [{
             price: price_ID,
             quantity: 1,
-        }
-
+        }]
 
     } else {
-
         return res.sendStatus(403)
-
     }
 
     const newAPIKey = generateApiKey()
@@ -53,7 +50,6 @@ app.post('/create-checkout-session/:product', async (req, res) =>{
         customer: stripeCustomerId,
         metadata: {
             APIkey: newAPIKey
-
         },
         line_items: line_items,
         mode: mode,
@@ -66,6 +62,5 @@ app.post('/create-checkout-session/:product', async (req, res) =>{
     //use webhook to access firebase entry for api key
     res.redirect(303, session.url)
 })
-
 
 app.listen(PORT, () => console.log(`Server has started on port: ${DOMAIN}`))
