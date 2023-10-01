@@ -1,2 +1,4 @@
 **/.env
 **/creds.json
+**/test.rest
+**/.restenv.json
