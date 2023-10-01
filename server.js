@@ -22,13 +22,57 @@ const { database } = require('firebase-admin')
 // routes
 app.get('/api', async (req, res) => {
     console.log('Received request for /api');
-    // console.log('Query parameters:', req.query);
-
     const { api_key, user_input, user_id } = req.query;
-    if (!api_key || api_key !== process.env.FIREBASE_API_KEY) {
-        console.log('Invalid or no api_key provided');
+    if (!api_key) {
+        console.log('No api_key provided');
         return res.sendStatus(403);
+    }
+    let paid_status;
+    const doc = await db.collection('api_keys').doc(api_key).get();
+    if (!doc.exists) {
+        console.log('API Key is invalid');
+        return res.status(403).send({ 'status': "API Key is invalid" });
     } else {
+        const { status, stripeCustomerId } = doc.data();
+        console.log(`status: ${status}, stripeCustomerId: ${stripeCustomerId}`);
+        if (status === 'subscription' || status > 0) {
+            paid_status = true;
+            if (status === 'subscription') {
+                console.log('Status is subscription');
+                const customer = await stripe.customers.retrieve(
+                    stripeCustomerId,
+                    { expand: ['subscriptions'] }
+                );
+
+                let subscriptionId = customer?.subscriptions?.data?.[0]?.id;
+                if (!subscriptionId) {
+                    console.log('No subscription found for this customer');
+                    return res.status(400).send({'status': 'No subscription found for this customer'});
+                }
+                console.log(`subscriptionId: ${subscriptionId}`);
+                const subscription = await stripe.subscriptions.retrieve(subscriptionId);
+                const itemId = subscription?.items?.data[0].id;
+                console.log(`itemId: ${itemId}`);
+
+                const record = stripe.subscriptionItems.createUsageRecord(
+                    itemId, {
+                    quantity: 1,
+                    timestamp: 'now',
+                    action: 'increment'
+                });
+                console.log('Usage record created');
+            } else {
+                console.log('Status is greater than 0');
+                const data = {
+                    status: status - 1
+                };
+                const dbRes = await db.collection('api_keys').doc(api_key).set(data, { merge: true });
+                console.log('Status decremented by 1');
+            }
+        }
+    }
+
+    if (paid_status) {
         try {
             console.log('Making request to https://knowlbot.aws.prd.ldg-tech.com/gpt');
             const response = await axios.post('https://knowlbot.aws.prd.ldg-tech.com/gpt', {
@@ -46,6 +90,9 @@ app.get('/api', async (req, res) => {
             console.error('Error during forwarding request:', error);
             res.status(error.response ? error.response.status : 500).send(error.message);
         }
+    } else {
+        console.log('Paid status is false');
+        res.sendStatus(403);
     }
 });
 
