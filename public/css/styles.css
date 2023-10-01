@@ -196,7 +196,7 @@ transform: translate(-2px, 2px);
 .activePlan,
 .activePlan2{
     border-radius: 20px;
-    background: coral;
+    background: lime;
     padding: 4px 10px;
     display: flex;
     align-items: center;
@@ -204,9 +204,6 @@ transform: translate(-2px, 2px);
 
 }
 
-.activePlan2{
-    background: rgb(97, 172, 97);
-}
 
 .activePlan p,
 .activePlan2 p,
@@ -228,7 +225,7 @@ transform: translate(-2px, 2px);
 }
 
 .currPlan {
-    color: lime
+    color: coral
 }
 
 .currPlan2 {
