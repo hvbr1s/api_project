@@ -76,6 +76,7 @@ app.post('/create-checkout-session/:product', async (req, res) =>{
         line_items = [{
             price: price_ID,
         }]
+        quantity_type = 'subscription'
 
     } else if (product === 'pre') {
         price_ID='price_1Nw54sK2BEcUysLFWyuX0UBW'
@@ -84,6 +85,7 @@ app.post('/create-checkout-session/:product', async (req, res) =>{
             price: price_ID,
             quantity: 1,
         }]
+        quantity_type = '100'
 
     } else {
         return res.sendStatus(403)
@@ -115,7 +117,7 @@ app.post('/create-checkout-session/:product', async (req, res) =>{
             APIkey: newAPIKey,
             payment_type: product,
             stripeCustomerId,
-            status: null
+            status: quantity_type
     }
     const dbRes = await db.collection('api_keys').doc(newAPIKey).set
     (data, {merge: true})

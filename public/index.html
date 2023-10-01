@@ -10,7 +10,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" type="text/css" href="./static/styles.css">
-
 </head>
 <body>
     <div class="container">
@@ -28,29 +27,22 @@
             <h3>Purpose</h3>
             <p>All your Ledger questions, answered immediately!</p>
         </div>
-        <div class="ïnfo">
-            <h3>Author</h3>
-            <p>Hvbris</p>
-
-        </div>
-
     </section>
     <section>
         <h2 class="subHeader">Check Key Status</h2>
-        <p class="preMsg">Please enter your API key below to chekc its status</p>
-        <p class="errMsg"> Please ensure your API key is formatted correctly</p>
-        <p class="authenticatedMsh">API Key Authenticated</p>
-        <div class="info">
-            <h3>Example API Key</h3>
-            <p>sk-00000x0000</p>
-        </div>
-        <div id="userKey" class="keyInput">
-            <input type="text" placeholder="API Key"/>
+        <p class="statusUpdate">Please enter your API key below to check its status:</p>
+        <p class="errMsg"> Something went wrong, please ensure your API key is formatted correctly</p>
+        <p id="successMsg" class="authenticatedMsg"><i class="fa-solid fa-check"></i> Your API Key is valid and active!</p>
+        <div class="keyInput">
+            <input id="userKey" type="text" placeholder="API Key"/>
             <i class="fa-regular fa-circle codeCheck"></i>
             <i class="fa-solid fa-circle codeCheck"></i>
         </div>
         <div id="check_status_btn" class="addKey">
             <i class="fa-solid fa-check"></i>Check Status
+        </div>
+        <div id="cancel_btn" class="addKey">
+            <i class="fa-solid fa-ban"></i>Cancel Subscription
         </div>
     </section>
     <section>
@@ -148,24 +140,55 @@
     </section>
 </body>
     <script>
+        const errMsg = document.querySelector('.errMsg')
+        const authMsg = document.querySelector('.authenticatedMsg')
+        const statusUpdate = document.querySelector('.statusUpdate')
         const input = document.getElementById('userKey')
+        const cancel_btn = document.getElementById('cancel_btn')
         const check_status_btn = document.getElementById('check_status_btn')
+        const success_btn = document.getElementById('successMsg')
 
         async function getCurrStatus(){
-            const user_api_key = document.querySelector('#userKey input').value;
+            const user_api_key = document.querySelector('#userKey').value;
             if (!user_api_key){
                 console.log('No API key entered');
                 return;
             }
-            try {
-                console.log('Sending request to /check_status');
-                const res = await fetch('http://localhost:8888/check_status?api_key='+ user_api_key)
-                if (!res.ok) {
-                    console.log('API key check failed with status: ', res.status);
+                try {
+                    console.log('Sending request to /check_status');
+                    const res = await fetch('http://localhost:8888/check_status?api_key='+ user_api_key)
+                    const data = await res.json();
+                    if (!res.ok) {
+                        console.log('API key check failed with status: ', res.status);
+                        errMsg.innerText = data.status;
+                        errMsg.style.display = 'inline';
+                        return;
+                    }
+                    const { status } = data;
+                    console.log('Received response from /check_status: ', status)
+                if (status === "Sorry, this API key does not exist!"){
+                    errMsg.innerText = "The provided API key is invalid. Please check and try again.";
+                    errMsg.style.display = 'inline';
                     return;
                 }
-                const { status } = await res.json()
-                console.log('Received response from /check_status: ', status)
+                if (status.includes("failed")){
+                    errMsg.innerText = status;
+                    errMsg.style.display = 'inline';
+                    return;
+                }
+                if (!status){
+                    //The API key is now auhtneticated
+                    console.log('Status is Null')
+                    statusUpdate.innerText = 'No active payments'
+                }
+                else if (status === 'subscription'){
+                    success_btn.style.display = 'flex'
+                    cancel_btn.style.display = 'flex'
+                }
+                else {
+                    success_btn.style.display = 'flex'
+                    statusUpdate.innerText = 'API calls remaining: ' + status
+                }
             }
             catch (err) {
                 console.log('Error occurred: ', err)
