@@ -196,7 +196,7 @@ transform: translate(-2px, 2px);
 .activePlan,
 .activePlan2{
     border-radius: 20px;
-    background: lime;
+    background: limegreen;
     padding: 4px 10px;
     display: flex;
     align-items: center;

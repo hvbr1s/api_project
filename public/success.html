@@ -29,6 +29,23 @@
                     gap: 24px;
                 }
 
+                .button {
+
+                    background: hsla(200, 83%, 61%, 0.2);
+                    color: whitesmoke;         
+                    cursor: pointer;
+                    border: 2px solid rgb(7, 7, 7);
+                    border-radius: 5px;
+                    padding: 8px 16px;
+                    box-shadow: 2px 2px 0 0 black,
+                    4px 4px 0 0 white;
+                    transition-duration: 200ms;
+                    gap:8px;
+                    text-decoration: none;
+                    width: fit-content;
+
+                }
+
         </style>
 </head>
 <body>
@@ -36,8 +53,10 @@
     <h1>Purchase Successful!</h1>
     <h3>Your API Key is: </h3>
     <div id="apiKey" class="apiKey"></div>
+    <button class="button" onclick="copyToClipboard()">Copy</button>
     <p>Copy this key and keep it secret!</p>
     <a href="/">Back to homepage</a><i class="fa-solid fa-house"></i>
+
 </body>
 <script>
 
@@ -46,5 +65,26 @@
     const div = document.getElementById('apiKey'); // Get the div element by its ID
     div.innerText = apikey; // Set the inner text of the div to the value of the 'apikey' parameter
 
+    function copyToClipboard() {
+        /* Get the text field */
+        var copyText = document.getElementById("apiKey");
+
+        /* Create a temporary textarea element */
+        var tempElement = document.createElement('textarea');
+        tempElement.value = copyText.innerText; // Set its value to the text of the div
+        document.body.appendChild(tempElement); // Append it to the body
+
+        /* Select the text field */
+        tempElement.select();
+
+        /* Copy the text inside the text field */
+        document.execCommand("copy");
+
+        /* Remove the temporary element */
+        document.body.removeChild(tempElement);
+
+        /* Alert the copied text */
+        alert("Copied API Key!");
+    }
 </script>
 </html>
