@@ -170,7 +170,7 @@
 
             // Make a GET request to /check_status with the user's API key as a query parameter
             const res = await fetch('http://localhost:8888/check_status?api_key=' + encodedUserApiKey);
-            
+
             // Parse the JSON response
             const data = await res.json();
 
@@ -198,11 +198,6 @@
                         <h3>Current Status: </h3>
                         <p>Your API Key is inactive or has been cancelled.</p>
                     </div>`
-            }
-            if (status.includes("failed")){
-                errMsg.innerText = status;
-                errMsg.style.display = 'inline';
-                return;
             }
             if (!status){
                 console.log('Status is Null');
