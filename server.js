@@ -64,6 +64,47 @@ app.get('/check_status', async (req, res) => {
     }
 })
 
+app.get('/delete', async (req,res)=>{
+    console.log('Received request for /delete');
+    const {api_key} = req.query
+    const doc = await db.collection('api_keys').doc(api_key).get()
+    if (!doc.exists){
+        console.log('API key does not exist');
+        res.status(400).send({'status': 'Sorry, this API key does not exist!'})
+    }
+    else {
+        const {stripeCustomerId} = doc.data()
+        if (!stripeCustomerId) {
+            console.log('No stripeCustomerId found for this API key');
+            return res.status(400).send({'status': 'No stripeCustomerId found for this API key'});
+        }
+        try {
+            const customer = await stripe.customers.retrieve(
+                stripeCustomerId,
+                {expand: ['subscriptions']}
+            )
+            let subscriptionId = customer?.subscriptions?.data?.[0]?.id
+            console.log(subscriptionId)
+            if (!subscriptionId) {
+                console.log('No subscription found for this customer');
+                return res.status(400).send({'status': 'No subscription found for this customer'});
+            }
+            await stripe.subscriptions.cancel(subscriptionId)
+        
+            const data = {
+                status: null //subscription or 8
+            }
+            const dbRes = await db.collection('api_keys').doc(api_key).set(data, { merge: true })
+
+        }
+        catch (err) {
+            console.log(err.message)
+            return res.sendStatus(500)
+        }
+        res.sendStatus(200)
+    }
+})
+
 
 app.post('/create-checkout-session/:product', async (req, res) =>{
 

@@ -35,8 +35,6 @@
         <p id="successMsg" class="authenticatedMsg"><i class="fa-solid fa-check"></i> Your API Key is valid and active!</p>
         <div class="keyInput">
             <input id="userKey" type="text" placeholder="API Key"/>
-            <i class="fa-regular fa-circle codeCheck"></i>
-            <i class="fa-solid fa-circle codeCheck"></i>
         </div>
         <div id="check_status_btn" class="addKey">
             <i class="fa-solid fa-check"></i>Check Status
@@ -95,7 +93,7 @@
             <form action="/create-checkout-session/sub" method="POST" class="subscription">
                 <div class="subscriptionHeader">
                     <div>
-                        <h3 class="currPlan2">Ondemand</h3>
+                        <h3 class="currPlan2">Subscription</h3>
                         <h3>Plan</h3>
                     </div>
                     <div class="activePlan2">
@@ -139,63 +137,116 @@
         </div>
     </section>
 </body>
-    <script>
-        const errMsg = document.querySelector('.errMsg')
-        const authMsg = document.querySelector('.authenticatedMsg')
-        const statusUpdate = document.querySelector('.statusUpdate')
-        const input = document.getElementById('userKey')
-        const cancel_btn = document.getElementById('cancel_btn')
-        const check_status_btn = document.getElementById('check_status_btn')
-        const success_btn = document.getElementById('successMsg')
+<script>
+    // Select and store DOM elements for error, authentication messages, and status updates
+    const errMsg = document.querySelector('.errMsg');
+    const authMsg = document.querySelector('.authenticatedMsg');
+    const statusUpdate = document.querySelector('.statusUpdate');
+    const successMsg = document.querySelector('#successMsg');
 
-        async function getCurrStatus(){
-            const user_api_key = document.querySelector('#userKey').value;
-            if (!user_api_key){
-                console.log('No API key entered');
+    // Select and store input field, cancel button, check status button, and success message elements
+    const input = document.getElementById('userKey');
+    const cancel_btn = document.getElementById('cancel_btn');
+    const check_status_btn = document.getElementById('check_status_btn');
+    const success_btn = document.getElementById('successMsg');
+    
+
+    // Define async function to get the current status of the user's API key
+    async function getCurrStatus(){
+        // Get the value of the userKey input field
+        const user_api_key = document.querySelector('#userKey').value;
+
+        // Check if user_api_key is empty and log a message if true
+        if (!user_api_key){
+            console.log('No API key entered');
+            return;
+        }
+        try {
+            // Log a message indicating a request is being sent to /check_status
+            console.log('Sending request to /check_status');
+
+            // Make a GET request to /check_status with the user's API key as a query parameter
+            const res = await fetch('http://localhost:8888/check_status?api_key='+ user_api_key);
+            // Parse the JSON response
+            const data = await res.json();
+
+            // Check if the response status is not OK and update the errMsg element with the status message
+            if (!res.ok) {
+                console.log('API key check failed with status: ', res.status);
+                errMsg.innerText = data.status;
+                errMsg.style.display = 'inline';
                 return;
             }
-                try {
-                    console.log('Sending request to /check_status');
-                    const res = await fetch('http://localhost:8888/check_status?api_key='+ user_api_key)
-                    const data = await res.json();
-                    if (!res.ok) {
-                        console.log('API key check failed with status: ', res.status);
-                        errMsg.innerText = data.status;
-                        errMsg.style.display = 'inline';
-                        return;
-                    }
-                    const { status } = data;
-                    console.log('Received response from /check_status: ', status)
-                if (status === "Sorry, this API key does not exist!"){
-                    errMsg.innerText = "The provided API key is invalid. Please check and try again.";
-                    errMsg.style.display = 'inline';
-                    return;
-                }
-                if (status.includes("failed")){
-                    errMsg.innerText = status;
-                    errMsg.style.display = 'inline';
-                    return;
-                }
-                if (!status){
-                    //The API key is now auhtneticated
-                    console.log('Status is Null')
-                    statusUpdate.innerText = 'No active payments'
-                }
-                else if (status === 'subscription'){
-                    success_btn.style.display = 'flex'
-                    cancel_btn.style.display = 'flex'
-                }
-                else {
-                    success_btn.style.display = 'flex'
-                    statusUpdate.innerText = 'API calls remaining: ' + status
-                }
+
+            // Destructure and store the status from the JSON response data
+            const { status } = data;
+            console.log('Received response from /check_status: ', status);
+
+            // Check the status and update the DOM elements accordingly
+            if (status === "Sorry, this API key does not exist!"){
+                errMsg.innerText = "The provided API key is invalid. Please check and try again.";
+                errMsg.style.display = 'inline';
+                return;
             }
-            catch (err) {
-                console.log('Error occurred: ', err)
+            if (status === null ){
+                statusUpdate.innerHTML =
+                `<div class="info">
+                        <h3>Current Status: </h3>
+                        <p>Your API Key is inactive or has been cancelled.</p>
+                    </div>`
             }
+            if (status.includes("failed")){
+                errMsg.innerText = status;
+                errMsg.style.display = 'inline';
+                return;
+            }
+            if (!status){
+                console.log('Status is Null');
+                statusUpdate.innerText = 'No active payments';
+            } else if (status === 'subscription'){
+                success_btn.style.display = 'flex';
+                cancel_btn.style.display = 'flex';
+            } else {
+                success_btn.style.display = 'flex';
+                statusUpdate.innerText = 'API calls remaining: ' + status;
+            }
+        } catch (err) {
+            // Log any errors that occur during the fetch operation
+            console.log('Error occurred: ', err);
         }
+    }
 
-        check_status_btn.addEventListener('click', getCurrStatus)
+    async function cancelSub () {
 
-    </script>
+            const user_api_key = input.value;
+            // Check if user_api_key is empty and log a message if true
+            if (!user_api_key){
+                console.log('No API key entered');
+                return
+            }
+            try {
+                // Log a message indicating a request is being sent to /delete
+                console.log('Sending request to /delete');
+                // Make a GET request to /check_status with the user's API key as a query parameter
+                const res = await fetch('http://localhost:8888/delete?api_key='+ user_api_key);
+                successMsg.style.display = 'none';
+                statusUpdate.innerHTML = (
+                `<div class="info">
+                        <h3>Current Status: </h3>
+                        <p>Deactivated or Inactive</p>
+                    </div>`)
+
+            } catch (err) {
+                // Log any errors that occur during the fetch operation
+                console.log('Error occurred: ', err);
+            }
+
+
+    }
+
+    cancel_btn.addEventListener('click', cancelSub)
+    // Add a click event listener to the check_status_btn that calls the getCurrStatus function
+    check_status_btn.addEventListener('click', getCurrStatus);
+</script>
+
 </html>
