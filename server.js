@@ -74,8 +74,8 @@ app.get('/api', async (req, res) => {
 
     if (paid_status) {
         try {
-            console.log('Making request to https://knowlbot.aws.prd.ldg-tech.com/gpt');
-            const response = await axios.post('https://knowlbot.aws.prd.ldg-tech.com/gpt', {
+            console.log('Making request to http://35.180.32.119:80/');
+            const response = await axios.post('http://35.180.32.119:80/', {
                 user_input: user_input,
                 user_id: user_id
             }, {
