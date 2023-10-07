@@ -19,7 +19,14 @@ app.use(express.static('public')) // for parsing application/x-www-form-urlencod
 const axios = require('axios');
 const { database } = require('firebase-admin')
 
-// routes
+// Routes`
+// Health check endpoint
+app.get('/_health', (req, res) => {
+    res.status(200).send('OK');
+  });
+
+// GPT Route
+
 app.get('/api', async (req, res) => {
     console.log('Received request for /api');
     const { api_key, user_input, user_id } = req.query;
