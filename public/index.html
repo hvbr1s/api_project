@@ -169,7 +169,7 @@
             const encodedUserApiKey = encodeURIComponent(user_api_key);
 
             // Make a GET request to /check_status with the user's API key as a query parameter
-            const res = await fetch('http://localhost:8888/check_status?api_key=' + encodedUserApiKey);
+            const res = await fetch('https://api-store-enhg.onrender.com/check_status?api_key=' + encodedUserApiKey);
 
             // Parse the JSON response
             const data = await res.json();
@@ -227,7 +227,7 @@
                 // Log a message indicating a request is being sent to /delete
                 console.log('Sending request to /delete');
                 // Make a GET request to /check_status with the user's API key as a query parameter
-                const res = await fetch('http://localhost:8888/delete?api_key='+ user_api_key);
+                const res = await fetch('https://api-store-enhg.onrender.com/delete?api_key='+ user_api_key);
                 successMsg.style.display = 'none';
                 statusUpdate.innerHTML = (
                 `<div class="info">
