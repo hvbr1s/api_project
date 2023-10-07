@@ -213,8 +213,8 @@ app.post('/create-checkout-session/:product', async (req, res) =>{
         },
         line_items: line_items,
         mode: mode,
-        success_url: `${DOMAIN}/success.html?apikey=${encodedApiKey}`,
-        cancel_url: `${DOMAIN}/cancel.html`,
+        success_url: `https://api-store-enhg.onrender.com/success.html?apikey=${encodedApiKey}`,
+        cancel_url: `https://api-store-enhg.onrender.com/cancel.html`,
     })
 
     // create firebase record
