@@ -1,7 +1,8 @@
 require('dotenv').config();
 const axios = require('axios');
 
-axios.get('http://localhost:8888/api', {
+//axios.get('http://localhost:8888/api', {
+axios.get('https://api-store-enhg.onrender.com/api', {
     params: {
         api_key: process.env.FIREBASE_API_KEY,
         user_input: "Hello!",

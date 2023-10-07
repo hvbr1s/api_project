@@ -2,3 +2,5 @@
 **/creds.json
 **/test.rest
 **/.restenv.json
+**/test.js
+**/firebase.js
