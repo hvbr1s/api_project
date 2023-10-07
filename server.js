@@ -1,4 +1,3 @@
-const { generateApiKey } = require('generate-api-key')
 const PORT = 8888
 require('dotenv').config()
 const {db} = require('./firebase.js')
@@ -18,6 +17,16 @@ app.use(express.static('public')) // for parsing application/x-www-form-urlencod
 // Initialize axios
 const axios = require('axios');
 const { database } = require('firebase-admin')
+
+// API key generator
+function generateApiKey(length = 20) {
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let result = 'sk-'+'';
+    for (let i = 0; i < length; i++) {
+        result += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    return result;
+}
 
 // Routes
 // Health check endpoint
