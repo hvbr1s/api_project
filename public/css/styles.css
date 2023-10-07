@@ -8,8 +8,9 @@
 body {
     font-family: 'Poppins', sans-serif;
     min-height: 100vh;
-    background: rgb(12, 12, 37);
-    color: white;
+    /* background: rgb(12, 12, 37); */
+    background: black;
+    color: rgba(245, 245, 245, 0.842);
     display: flex;
     flex-direction: column;
     padding-left: 36px;
@@ -37,8 +38,9 @@ body {
 .headerContainer a,
 .updateBtn,
 .addKey {
-    background: hsla(200, 83%, 61%, 0.2);
-    color: whitesmoke;         
+    /* background: hsla(200, 83%, 61%, 0.2); */
+    background: lavender;
+    color: black;        
     cursor: pointer;
     border: 2px solid rgb(7, 7, 7);
     border-radius: 5px;
@@ -96,7 +98,7 @@ transform: translate(-2px, 2px);
 }
 
 .info h3{
-    color:aquamarine;
+    color:coral;
     font-weight: 500;
 }
 
@@ -138,11 +140,11 @@ transform: translate(-2px, 2px);
     gap:8px;
     width:100%;
     margin-top: 8px;
-    border: 1px solid navy
+    border: 1px solid lavender
 }
 
 .keyInput:focus-within{
-    border-color: blue;
+    border-color: plum;
 }
 
 .keyInput input{
@@ -196,7 +198,7 @@ transform: translate(-2px, 2px);
 .activePlan,
 .activePlan2{
     border-radius: 20px;
-    background: limegreen;
+    background: rgba(62, 156, 62, 0.753);
     padding: 4px 10px;
     display: flex;
     align-items: center;
@@ -229,7 +231,7 @@ transform: translate(-2px, 2px);
 }
 
 .currPlan2 {
-    color: cyan
+    color: coral
 }
 
 .subscriptionDetails {
@@ -264,7 +266,7 @@ transform: translate(-2px, 2px);
     display: flex;
     align-items: center;
     justify-content: space-between;
-    color: white;
+    color: rgba(245, 245, 245, 0.801);
 
 }
 

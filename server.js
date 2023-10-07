@@ -19,14 +19,13 @@ app.use(express.static('public')) // for parsing application/x-www-form-urlencod
 const axios = require('axios');
 const { database } = require('firebase-admin')
 
-// Routes`
+// Routes
 // Health check endpoint
 app.get('/_health', (req, res) => {
     res.status(200).send('OK');
   });
 
 // GPT Route
-
 app.get('/api', async (req, res) => {
     console.log('Received request for /api');
     const { api_key, user_input, user_id } = req.query;
@@ -196,6 +195,7 @@ app.post('/create-checkout-session/:product', async (req, res) =>{
     })
 
     const stripeCustomerId = customer.id
+    const encodedApiKey = encodeURIComponent(newAPIKey);
     const session = await stripe.checkout.sessions.create({
         customer: stripeCustomerId,
         metadata: {
@@ -204,7 +204,7 @@ app.post('/create-checkout-session/:product', async (req, res) =>{
         },
         line_items: line_items,
         mode: mode,
-        success_url: `${DOMAIN}/success.html?apikey=${newAPIKey}`,
+        success_url: `${DOMAIN}/success.html?apikey=${encodedApiKey}`,
         cancel_url: `${DOMAIN}/cancel.html`,
     })
 

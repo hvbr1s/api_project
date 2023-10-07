@@ -68,7 +68,7 @@
 <script>
 
     const urlParams = new URLSearchParams(window.location.search); // Create a URLSearchParams object with the query string
-    const apikey = urlParams.get('apikey'); // Get the value of the 'apikey' parameter from the query string
+    const apikey = decodeURIComponent(urlParams.get('apikey'));; // Get the value of the 'apikey' parameter from the query string
     const div = document.getElementById('apiKey'); // Get the div element by its ID
     div.innerText = apikey; // Set the inner text of the div to the value of the 'apikey' parameter
 
