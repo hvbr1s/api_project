@@ -35,9 +35,10 @@ app.get('/_health', (req, res) => {
   });
 
 // GPT Route
-app.get('/api', async (req, res) => {
+app.post('/api', async (req, res) => {
     console.log('Received request for /api');
-    const { api_key, user_input, user_id } = req.query;
+    const api_key = req.headers.authorization;
+    const { user_input, user_id } = req.body;
     if (!api_key) {
         console.log('No api_key provided');
         return res.sendStatus(403);
