@@ -35,7 +35,8 @@ Content-Type: application/json
 
 - api_key (required): This is the API key that you have acquired through `https://api-store-enhg.onrender.com/`. It is used for authentication.
 - user_input (required): This is your question.
-- user_id (required): An ID number, can be any number.
-Response
+- user_id (required): An ID number, can be any number.  
+
+###Response
 
 If the request is successful, the server will forward the response from the target address. If the api_key is invalid or not provided, the server will respond with a 403 status code. If there is an error during forwarding the request, the server will respond with the status code of the error response or 500 if the error response is not available.
