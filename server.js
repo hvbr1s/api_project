@@ -90,8 +90,8 @@ app.post('/api', async (req, res) => {
 
     if (paid_status) {
         try {
-            console.log('Making request to http://35.180.32.119:80/');
-            const response = await axios.post('http://35.180.32.119:80/', {
+            console.log('Making request to https://samanthabot.co/');
+            const response = await axios.post('https://samanthabot.co/', {
                 user_input: user_input,
                 user_id: user_id
             }, {
