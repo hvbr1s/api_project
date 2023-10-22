@@ -1,6 +1,6 @@
 ## API Request to the /api Route  
 
-To make an API request to the /api route, you need to use the HTTP GET method and include the FIREBASE_API_KEY as a query parameter. The request should also include user_input and user_id as query parameters.
+To make an API request to the /api route, you need to use the HTTP POST method and include your API key in the request header. The request should also include user_input and user_id as query parameters.
 
 Here is an example of how to format the request:  
 
