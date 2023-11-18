@@ -34,6 +34,11 @@ app.get('/_health', (req, res) => {
     res.status(200).send('OK');
   });
 
+// Privacy Route
+app.get('/privacy', (req, res) => {
+  res.send('Welcome to the SamanthaBot privacy page');
+});
+
 // GPT Route
 app.post('/api', async (req, res) => {
     console.log('Received request for /api');
