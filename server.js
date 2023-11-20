@@ -42,8 +42,7 @@ app.get('/privacy', (req, res) => {
 // GPT Route
 app.post('/api', async (req, res) => {
     console.log('Received request for /api');
-    const api_key = req.headers.authorization;
-    const { user_input, user_id } = req.body;
+    const { user_input, user_id, api_key } = req.body; // Extract api_key from body
     if (!api_key) {
         console.log('No api_key provided');
         return res.sendStatus(403);
